@@ -1,0 +1,13 @@
+﻿Build started 08/04/2013 1:14:46 AM.
+     1>Project "C:\Users\Shane\Documents\GitHub\Socket-Library\SocketLibrary\SocketLibrary.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release DLL\\" /Fd"Release DLL\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt SocketLibrary.cpp
+         SocketLibrary.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Shane\Documents\GitHub\Socket-Library\lib\x86\SocketLibrary-mt.lib" /NOLOGO /LTCG "Release DLL\SocketLibrary.obj"
+         SocketLibrary.vcxproj -> C:\Users\Shane\Documents\GitHub\Socket-Library\lib\x86\SocketLibrary-mt.lib
+     1>Done Building Project "C:\Users\Shane\Documents\GitHub\Socket-Library\SocketLibrary\SocketLibrary.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.27

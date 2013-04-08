@@ -11,6 +11,8 @@
 #pragma comment (lib,"SocketLibrary-mt.lib")
 #endif
 
-
+class SocketLibrary
+{
+};
 
 #endif
