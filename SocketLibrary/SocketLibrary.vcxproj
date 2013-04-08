@@ -73,6 +73,9 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SocketLibrary.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
