@@ -1,13 +1,13 @@
-﻿Build started 08/04/2013 1:14:46 AM.
-     1>Project "C:\Users\Shane\Documents\GitHub\Socket-Library\SocketLibrary\SocketLibrary.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/8/2013 12:55:00 PM.
+     1>Project "C:\Users\Travis\Documents\GitHub\Socket-Library\SocketLibrary\SocketLibrary.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug DLL\\" /Fd"Debug DLL\vc110.pdb" /Gd /TP /analyze- /Zl /errorReport:prompt SocketLibrary.cpp
          SocketLibrary.cpp
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Shane\Documents\GitHub\Socket-Library\lib\x86\SocketLibrary-mt-gd.lib" /NOLOGO "Debug DLL\SocketLibrary.obj"
-         SocketLibrary.vcxproj -> C:\Users\Shane\Documents\GitHub\Socket-Library\lib\x86\SocketLibrary-mt-gd.lib
-     1>Done Building Project "C:\Users\Shane\Documents\GitHub\Socket-Library\SocketLibrary\SocketLibrary.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Travis\Documents\GitHub\Socket-Library\lib\x86\SocketLibrary-mt-gd.lib" /NOLOGO "Debug DLL\SocketLibrary.obj"
+         SocketLibrary.vcxproj -> C:\Users\Travis\Documents\GitHub\Socket-Library\lib\x86\SocketLibrary-mt-gd.lib
+     1>Done Building Project "C:\Users\Travis\Documents\GitHub\Socket-Library\SocketLibrary\SocketLibrary.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.22
+Time Elapsed 00:00:00.81

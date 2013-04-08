@@ -11,8 +11,19 @@
 #pragma comment (lib,"SocketLibrary-mt.lib")
 #endif
 
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+
 class SocketLibrary
 {
+private:
+	WSADATA _wsaData;
+	int _iResult;
+	SOCKET _hSocket;
+public:
+	SocketLibrary();
+
+	~SocketLibrary();
 };
 
 #endif
