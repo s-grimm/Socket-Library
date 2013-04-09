@@ -1,14 +1,15 @@
 #include "SocketLibrary.hpp"
 
-SocketLibrary::SocketLibrary() {
-	unsigned short const PORT = 49153;
-	_iResult = WSAStartup( MAKEWORD(2,2), &_wsaData );
+SocketLibrary::SocketLibrary( unsigned short port, IPPROTO protocol ) {
+	_port = port;
+	_protocol = protocol;
+	/*_iResult = WSAStartup( MAKEWORD(2,2), &_wsaData );
 
 	if (_iResult != 0 ) {
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 
-	_hSocket = socket( AF_INET, SOCK_DGRAM, 0 );
+	_hSocket = socket( AF_INET, SOCK_DGRAM,  );
 
 	sockaddr_in _serverAddress = { 0 };
 	_serverAddress.sin_family = AF_INET;
@@ -19,7 +20,7 @@ SocketLibrary::SocketLibrary() {
 	if( res == SOCKET_ERROR ) {
 		closesocket( _hSocket );
 		throw ERROR_UNHANDLED_EXCEPTION;
-	}
+	}*/
 }
 
 SocketLibrary::~SocketLibrary() {

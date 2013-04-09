@@ -20,10 +20,14 @@ private:
 	WSADATA _wsaData;
 	int _iResult;
 	SOCKET _hSocket;
+	IPPROTO _protocol;
+	unsigned short _port;
 public:
-	SocketLibrary();
+	SocketLibrary( unsigned short port, IPPROTO protocol);
 
 	~SocketLibrary();
+
+	void set_port( unsigned short port );
 };
 
 #endif
