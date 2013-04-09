@@ -20,17 +20,42 @@ private:
 	WSADATA _wsaData;
 	int _iResult;
 	SOCKET _hSocket;
-	IPPROTO _protocol;
-	unsigned short _port;
 	sockaddr_in _serverAddress;
-	unsigned short _socketType;
+	USHORT _port;
+	IPPROTO _protocol;
+	USHORT _socketType;
 	ADDRESS_FAMILY _addressFamily;
 public:
-	SocketLibrary( unsigned short port, IPPROTO protocol );
+	SocketLibrary( USHORT port, IPPROTO protocol );
+	SocketLibrary( USHORT port, IPPROTO protocol, USHORT socketType );
+	SocketLibrary( USHORT port, IPPROTO protocol, ADDRESS_FAMILY addressFamily );
+	SocketLibrary( USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
 
 	~SocketLibrary();
 
-	void set_port( unsigned short port );
+	void set_wsaData( WSADATA wsaData );
+	WSADATA& get_wsaData();
+
+	void set_iResult( int iResult );
+	int& get_iResult();
+
+	void set_socket( SOCKET hSocket );
+	SOCKET& get_socket();
+
+	void set_serverAddress( sockaddr_in serverAddress );
+	sockaddr_in& get_serverAddress();
+
+	void set_port( USHORT port );
+	USHORT& get_port();
+
+	void set_protocol( IPPROTO protocol );
+	IPPROTO& get_protocol();
+
+	void set_socketType( USHORT set_socketType );
+	USHORT& get_socketType();
+
+	void set_addressFamily( ADDRESS_FAMILY );
+	ADDRESS_FAMILY& get_addressFamily();
 };
 
 #endif
