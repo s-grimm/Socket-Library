@@ -1,4 +1,4 @@
-﻿Build started 4/8/2013 12:54:59 PM.
+﻿Build started 4/9/2013 6:47:20 PM.
      1>Project "C:\Users\Travis\Documents\GitHub\Socket-Library\SocketLibrary\SocketLibrary.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN64 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug DLL\\" /Fd"x64\Debug DLL\vc110.pdb" /Gd /TP /Zl /errorReport:prompt SocketLibrary.cpp
@@ -10,4 +10,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.84
+Time Elapsed 00:00:01.61

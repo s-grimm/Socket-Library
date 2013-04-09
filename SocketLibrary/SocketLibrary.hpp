@@ -65,6 +65,11 @@ public:
 	//-- Helper Methods --//
 	//--------------------//
 	void Start();
+	void Stop();
+	void Process();
+
+protected:
+	void Restart();
 };
 
 #endif

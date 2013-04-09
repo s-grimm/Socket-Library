@@ -7,7 +7,7 @@
       <x>100</x>
       <y>40</y>
       <w>720</w>
-      <h>420</h>
+      <h>490</h>
     </coordinates>
     <panel_attributes>*SocketLibrary*
 --
@@ -34,7 +34,11 @@
 +set_socketType( set_socketType: USHORT  ): void
 +get_socketType(): USHORT&amp;
 +set_addressFamily( addressFamily: ADDRESS_FAMILY ): void
-+get_addressFamily(): ADDRESS_FAMILY&amp;</panel_attributes>
++get_addressFamily(): ADDRESS_FAMILY&amp;
++Start(): void
++Stop(): void
++Process(): void
+-Restart(): void</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
