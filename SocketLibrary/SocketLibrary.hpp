@@ -22,8 +22,11 @@ private:
 	SOCKET _hSocket;
 	IPPROTO _protocol;
 	unsigned short _port;
+	sockaddr_in _serverAddress;
+	unsigned short _socketType;
+	ADDRESS_FAMILY _addressFamily;
 public:
-	SocketLibrary( unsigned short port, IPPROTO protocol);
+	SocketLibrary( unsigned short port, IPPROTO protocol );
 
 	~SocketLibrary();
 
