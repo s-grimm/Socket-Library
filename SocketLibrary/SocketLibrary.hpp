@@ -26,23 +26,27 @@ private:
 	USHORT _socketType;
 	ADDRESS_FAMILY _addressFamily;
 public:
+	//------------//
+	//-- C'tors --//
+	//------------//
 	SocketLibrary( USHORT port, IPPROTO protocol );
-	SocketLibrary( USHORT port, IPPROTO protocol, USHORT socketType );
-	SocketLibrary( USHORT port, IPPROTO protocol, ADDRESS_FAMILY addressFamily );
 	SocketLibrary( USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
 
 	~SocketLibrary();
 
-	void set_wsaData( WSADATA wsaData );
+	//----------------------//
+	//-- Accessor Methods --//
+	//----------------------//
+	//void set_wsaData( WSADATA wsaData );
 	WSADATA& get_wsaData();
 
-	void set_iResult( int iResult );
+	//void set_iResult( int iResult );
 	int& get_iResult();
 
-	void set_socket( SOCKET hSocket );
+	//void set_socket( SOCKET hSocket );
 	SOCKET& get_socket();
 
-	void set_serverAddress( sockaddr_in serverAddress );
+	//void set_serverAddress( sockaddr_in serverAddress );
 	sockaddr_in& get_serverAddress();
 
 	void set_port( USHORT port );
@@ -56,6 +60,11 @@ public:
 
 	void set_addressFamily( ADDRESS_FAMILY );
 	ADDRESS_FAMILY& get_addressFamily();
+
+	//--------------------//
+	//-- Helper Methods --//
+	//--------------------//
+	void Start();
 };
 
 #endif
