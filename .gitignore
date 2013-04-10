@@ -1,5 +1,7 @@
 lib/
-
+x64/
+Debug DLL/
+Release DLL/
 
 #################
 ## Eclipse
