@@ -63,6 +63,26 @@ void SocketLibrary::Stop() {
 	WSACleanup();
 }
 
+void Process() {
+	for(;;) {
+		sockaddr	clientAddress;
+		socklen_t	cbClientAddress = sizeof(clientAddress);
+		int const MAXLINE = 256;
+		char msg[MAXLINE];
+
+		int n = recvfrom( _hSocket, msg, MAXLINE, 0, &clientAddress, &cbClientAddress );
+		msg[min(n,255)] = 0;
+		std::cout << "Recv: " << msg << std::endl;
+		if( !strcmp(msg, "!quit") ) {
+			std::string const terminateMsg = "server exit";
+			sendto( _hSocket, terminateMsg.c_str(), terminateMsg.size(), 0, &clientAddress, cbClientAddress );
+			break;
+		}
+		msg[0] = toupper( msg[0] );
+		sendto( _hSocket, msg, n, 0, &clientAddress, cbClientAddress );
+	}
+}
+
 void SocketLibrary::Restart() {
 	Stop();
 	Start();

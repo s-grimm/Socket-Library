@@ -4,100 +4,20 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>984</x>
-      <y>336</y>
-      <w>132</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>108;36;36;36</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>132</x>
-      <y>360</y>
-      <w>372</w>
-      <h>204</h>
-    </coordinates>
-    <panel_attributes>If Instantiated</panel_attributes>
-    <additional_attributes>36;36;348;180</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1032</x>
-      <y>372</y>
+      <x>960</x>
+      <y>492</y>
       <w>176</w>
-      <h>192</h>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 &lt;&lt;Exception&gt;&gt;</panel_attributes>
-    <additional_attributes>48;168;144;36</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>132</x>
-      <y>336</y>
-      <w>252</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>36;36;228;36</additional_attributes>
+    <additional_attributes>60;36;120;120</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.UseCase</type>
     <coordinates>
-      <x>480</x>
-      <y>516</y>
-      <w>240</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Configures Property
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.UseCase</type>
-    <coordinates>
-      <x>828</x>
-      <y>336</y>
-      <w>192</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>Binding
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>132</x>
-      <y>192</y>
-      <w>528</w>
-      <h>192</h>
-    </coordinates>
-    <panel_attributes>If Instantiated</panel_attributes>
-    <additional_attributes>504;156;300;60;36;168</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.UseCase</type>
-    <coordinates>
-      <x>360</x>
-      <y>336</y>
-      <w>192</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>Instantiates Instance
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.UseCase</type>
-    <coordinates>
-      <x>612</x>
-      <y>348</y>
+      <x>540</x>
+      <y>300</y>
       <w>144</w>
       <h>48</h>
     </coordinates>
@@ -108,19 +28,100 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>720</x>
-      <y>336</y>
-      <w>132</w>
+      <x>60</x>
+      <y>288</y>
+      <w>252</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>108;36;36;36</additional_attributes>
+    <panel_attributes/>
+    <additional_attributes>36;36;228;36</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.UseCase</type>
+    <coordinates>
+      <x>1020</x>
+      <y>300</y>
+      <w>240</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Recieves Message
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Actor</type>
+    <coordinates>
+      <x>0</x>
+      <y>300</y>
+      <w>120</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>User</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>912</x>
-      <y>360</y>
+      <x>60</x>
+      <y>312</y>
+      <w>372</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>If Instantiated</panel_attributes>
+    <additional_attributes>36;36;348;180</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.UseCase</type>
+    <coordinates>
+      <x>408</x>
+      <y>468</y>
+      <w>240</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Configures Property
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1104</x>
+      <y>324</y>
+      <w>60</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>36;276;36;36</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>960</x>
+      <y>324</y>
+      <w>176</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+&lt;&lt;Exception&gt;&gt;</panel_attributes>
+    <additional_attributes>48;168;144;36</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.UseCase</type>
+    <coordinates>
+      <x>756</x>
+      <y>288</y>
+      <w>192</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Binding
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>840</x>
+      <y>312</y>
       <w>176</w>
       <h>204</h>
     </coordinates>
@@ -131,30 +132,86 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1176</x>
-      <y>372</y>
-      <w>60</w>
-      <h>300</h>
+      <x>60</x>
+      <y>324</y>
+      <w>924</w>
+      <h>312</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>36;276;36;36</additional_attributes>
+    <panel_attributes>If Running</panel_attributes>
+    <additional_attributes>36;36;348;288;816;288;900;216</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.UseCase</type>
     <coordinates>
-      <x>960</x>
-      <y>540</y>
-      <w>144</w>
+      <x>1068</x>
+      <y>600</y>
+      <w>180</w>
       <h>48</h>
     </coordinates>
-    <panel_attributes>Stop Library</panel_attributes>
+    <panel_attributes>Handle Message</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>660</x>
-      <y>372</y>
+      <x>1140</x>
+      <y>324</y>
+      <w>60</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>36;36;36;276</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>648</x>
+      <y>288</y>
+      <w>132</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>108;36;36;36</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>912</x>
+      <y>288</y>
+      <w>132</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>108;36;36;36</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>60</x>
+      <y>144</y>
+      <w>528</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>If Instantiated</panel_attributes>
+    <additional_attributes>504;156;300;60;36;168</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.UseCase</type>
+    <coordinates>
+      <x>288</x>
+      <y>288</y>
+      <w>192</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Instantiates Instance
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>588</x>
+      <y>324</y>
       <w>252</w>
       <h>180</h>
     </coordinates>
@@ -165,69 +222,12 @@ If Started</panel_attributes>
   <element>
     <type>com.umlet.element.UseCase</type>
     <coordinates>
-      <x>1140</x>
-      <y>648</y>
-      <w>180</w>
+      <x>888</x>
+      <y>492</y>
+      <w>144</w>
       <h>48</h>
     </coordinates>
-    <panel_attributes>Handle Message</panel_attributes>
+    <panel_attributes>Stop Library</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>132</x>
-      <y>372</y>
-      <w>924</w>
-      <h>312</h>
-    </coordinates>
-    <panel_attributes>If Running</panel_attributes>
-    <additional_attributes>36;36;348;288;816;288;900;216</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.UseCase</type>
-    <coordinates>
-      <x>1092</x>
-      <y>348</y>
-      <w>240</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Recieves Message
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1212</x>
-      <y>372</y>
-      <w>60</w>
-      <h>300</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>36;36;36;276</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Actor</type>
-    <coordinates>
-      <x>72</x>
-      <y>348</y>
-      <w>120</w>
-      <h>144</h>
-    </coordinates>
-    <panel_attributes>User</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>1032</x>
-      <y>540</y>
-      <w>176</w>
-      <h>144</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.
-&lt;&lt;Exception&gt;&gt;</panel_attributes>
-    <additional_attributes>60;36;120;120</additional_attributes>
   </element>
 </diagram>
