@@ -1,5 +1,5 @@
 #include "SocketLibrary.hpp"
-
+#include <iostream>
 //------------//
 //-- C'tors --//
 //------------//
@@ -63,7 +63,7 @@ void SocketLibrary::Stop() {
 	WSACleanup();
 }
 
-void Process() {
+void SocketLibrary::Process() {
 	for(;;) {
 		sockaddr	clientAddress;
 		socklen_t	cbClientAddress = sizeof(clientAddress);
