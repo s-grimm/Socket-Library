@@ -4,7 +4,7 @@ using namespace SocketLibrary;
 //------------//
 //-- C'tors --//
 //------------//
-SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_DGRAM), _addressFamily(AF_INET) { }
+SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_STREAM), _addressFamily(AF_INET) { }
 SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
 
 SocketClient::~SocketClient() { }
@@ -37,7 +37,7 @@ ADDRESS_FAMILY& SocketClient::get_addressFamily() { return _addressFamily; }
 //--------------------//
 void SocketClient::Start() {
 	_iResult = WSAStartup( MAKEWORD( 2, 2 ), &_wsaData );
-	if ( !_iResult ) {
+	if ( _iResult != 0 ) {
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 
@@ -63,23 +63,20 @@ void SocketClient::Stop() {
 }
 
 void SocketClient::Process() {
-	for(;;) {
-		sockaddr	clientAddress;
-		socklen_t	cbClientAddress = sizeof(clientAddress);
-		int const MAXLINE = 256;
-		char msg[MAXLINE];
+	unsigned int const MAX = 256;
+	char buf[MAX];
+	strcpy( buf, "Hello" );
+	int bytesSent = send( _hSocket, buf, strlen( buf ) + 1, 0 );
+	std::cout << "Sent: " << bytesSent << " bytes" << std::endl;
 
-		int n = recvfrom( _hSocket, msg, MAXLINE, 0, &clientAddress, &cbClientAddress );
-		msg[min(n,255)] = 0;
-		std::cout << "Recv: " << msg << std::endl;
-		if( !strcmp(msg, "!quit") ) {
-			std::string const terminateMsg = "server exit";
-			sendto( _hSocket, terminateMsg.c_str(), terminateMsg.size(), 0, &clientAddress, cbClientAddress );
-			break;
-		}
-		msg[0] = toupper( msg[0] );
-		sendto( _hSocket, msg, n, 0, &clientAddress, cbClientAddress );
-	}
+	int bytesRecv = recv( _hSocket, buf, MAX, 0 );
+	std::cout << "Recieved " << bytesRecv << " bytes" << std::endl;
+	std::cout << "Msg: " << buf << std::endl;
+
+	int i = 42;
+	send( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
+	recv( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
+	std::cout << "i = " << i << std::endl;
 }
 
 void SocketClient::Restart() {

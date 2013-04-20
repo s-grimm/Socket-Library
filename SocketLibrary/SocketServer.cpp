@@ -4,7 +4,7 @@ using namespace SocketLibrary;
 //------------//
 //-- C'tors --//
 //------------//
-SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_DGRAM), _addressFamily(AF_INET) {}
+SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_STREAM), _addressFamily(AF_INET) {}
 SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
 
 SocketServer::~SocketServer() { }
@@ -37,7 +37,7 @@ ADDRESS_FAMILY& SocketServer::get_addressFamily() { return _addressFamily; }
 //--------------------//
 void SocketServer::Start() {
 	_iResult = WSAStartup( MAKEWORD( 2, 2 ), &_wsaData );
-	if ( !_iResult ) {
+	if ( _iResult != 0 ) {
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 
@@ -68,23 +68,30 @@ void SocketServer::Stop() {
 }
 
 void SocketServer::Process() {
-	for(;;) {
-		sockaddr	clientAddress;
-		socklen_t	cbClientAddress = sizeof(clientAddress);
-		int const MAXLINE = 256;
-		char msg[MAXLINE];
+	std::cout << "Waiting for a connection" << std::endl;
+	SOCKET hAccepted = SOCKET_ERROR;
+	while( hAccepted == SOCKET_ERROR )
+		hAccepted = accept( _hSocket, NULL, NULL );
+	std::cout << "Client connected" << std::endl;
 
-		int n = recvfrom( _hSocket, msg, MAXLINE, 0, &clientAddress, &cbClientAddress );
-		msg[min(n,255)] = 0;
-		std::cout << "Recv: " << msg << std::endl;
-		if( !strcmp(msg, "!quit") ) {
-			std::string const terminateMsg = "server exit";
-			sendto( _hSocket, terminateMsg.c_str(), terminateMsg.size(), 0, &clientAddress, cbClientAddress );
-			break;
-		}
-		msg[0] = toupper( msg[0] );
-		sendto( _hSocket, msg, n, 0, &clientAddress, cbClientAddress );
-	}
+	unsigned int const MAX = 256;
+	char buf[MAX];
+	int bytesRecv = recv( hAccepted, buf, MAX, 0 );
+	std::cout << "Recieved " << bytesRecv << " bytes" << std::endl;
+	std::cout << "Msg: " << buf << std::endl;
+
+	strcpy( buf, "Recieved" );
+	int bytesSent = send( hAccepted, buf, strlen( buf ) + 1, 0 );
+	std::cout << "Sent: " << bytesSent << " bytes" << std::endl;
+
+
+	int i = 0;
+	recv( hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
+	i *= 2;
+	send( hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
+
+
+	closesocket( hAccepted );
 }
 
 void SocketServer::Restart() {
