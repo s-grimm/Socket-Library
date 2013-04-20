@@ -37,20 +37,22 @@ ADDRESS_FAMILY& SocketClient::get_addressFamily() { return _addressFamily; }
 //--------------------//
 void SocketClient::Start() {
 	_iResult = WSAStartup( MAKEWORD( 2, 2 ), &_wsaData );
-
 	if ( !_iResult ) {
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 
 	_hSocket = socket( _addressFamily, _socketType, _protocol );
+	if( _hSocket == INVALID_SOCKET ) {
+		throw ERROR_UNHANDLED_EXCEPTION;
+	}
 
-	_serverAddress.sin_family = AF_INET;
+	_serverAddress.sin_family = _addressFamily;
 	_serverAddress.sin_port = htons( _port );
-	_serverAddress.sin_addr.s_addr = htonl( INADDR_ANY );
+	_serverAddress.sin_addr.s_addr = inet_addr( _ipAddress.c_str() );
 
-	int res = bind( _hSocket, (sockaddr*)&_serverAddress, sizeof(sockaddr_in) );
+	int res = connect( _hSocket, (sockaddr*)&_serverAddress, sizeof(_serverAddress) );
 	if( res == SOCKET_ERROR ) {
-		closesocket( _hSocket );
+		Stop();
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 }
