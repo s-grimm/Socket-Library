@@ -4,8 +4,8 @@ using namespace SocketLibrary;
 //------------//
 //-- C'tors --//
 //------------//
-SocketClient::SocketClient( USHORT port, IPPROTO protocol ) :	_port(port), _protocol(protocol), _socketType(SOCK_DGRAM), _addressFamily(AF_INET) { }
-SocketClient::SocketClient( USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
+SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_DGRAM), _addressFamily(AF_INET) { }
+SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
 
 SocketClient::~SocketClient() { }
 

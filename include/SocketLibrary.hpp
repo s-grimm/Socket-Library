@@ -16,7 +16,6 @@
 #include <WS2tcpip.h>
 #include <vector>
 
-
 namespace SocketLibrary
 {
 	struct ConnectedClient {
@@ -27,111 +26,113 @@ namespace SocketLibrary
 			_cbClientAddress = sizeof( _clientAddress );
 		}
 	};
-	
-	class SocketServer {	
+
+	class SocketServer {
 	private:
-			WSADATA _wsaData;
-			int _iResult;
-			SOCKET _hSocket;
-			sockaddr_in _serverAddress;
-			std::vector<ConnectedClient> _connectedClients;
-			USHORT _port;
-			IPPROTO _protocol;
-			USHORT _socketType;
-			ADDRESS_FAMILY _addressFamily;
-		public:
-			//------------//
-			//-- C'tors --//
-			//------------//
-			SocketServer( USHORT port, IPPROTO protocol );
-			SocketServer( USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
+		WSADATA _wsaData;
+		int _iResult;
+		SOCKET _hSocket;
+		sockaddr_in _serverAddress;
+		std::string _ipAddress;
+		std::vector<ConnectedClient> _connectedClients;
+		USHORT _port;
+		IPPROTO _protocol;
+		USHORT _socketType;
+		ADDRESS_FAMILY _addressFamily;
+	public:
+		//------------//
+		//-- C'tors --//
+		//------------//
+		SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol );
+		SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
 
-			~SocketServer();
+		~SocketServer();
 
-			//----------------------//
-			//-- Accessor Methods --//
-			//----------------------//
-			WSADATA& get_wsaData();
+		//----------------------//
+		//-- Accessor Methods --//
+		//----------------------//
+		WSADATA& get_wsaData();
 
-			int& get_iResult();
+		int& get_iResult();
 
-			SOCKET& get_socket();
+		SOCKET& get_socket();
 
-			sockaddr_in& get_serverAddress();
+		sockaddr_in& get_serverAddress();
 
-			void set_port( USHORT port );
-			USHORT& get_port();
+		void set_port( USHORT port );
+		USHORT& get_port();
 
-			void set_protocol( IPPROTO protocol );
-			IPPROTO& get_protocol();
+		void set_protocol( IPPROTO protocol );
+		IPPROTO& get_protocol();
 
-			void set_socketType( USHORT socketType );
-			USHORT& get_socketType();
+		void set_socketType( USHORT socketType );
+		USHORT& get_socketType();
 
-			void set_addressFamily( ADDRESS_FAMILY addressFamily );
-			ADDRESS_FAMILY& get_addressFamily();
+		void set_addressFamily( ADDRESS_FAMILY addressFamily );
+		ADDRESS_FAMILY& get_addressFamily();
 
-			//--------------------//
-			//-- Helper Methods --//
-			//--------------------//
-			void Start();
-			void Stop();
-			void Process();
+		//--------------------//
+		//-- Helper Methods --//
+		//--------------------//
+		void Start();
+		void Stop();
+		void Process();
 
-		protected:
-			void Restart();
+	protected:
+		void Restart();
 	};
 
 	class SocketClient {
-			WSADATA _wsaData;
-			int _iResult;
-			SOCKET _hSocket;
-			sockaddr_in _serverAddress;
-			USHORT _port;
-			IPPROTO _protocol;
-			USHORT _socketType;
-			ADDRESS_FAMILY _addressFamily;
-		public:
-			//------------//
-			//-- C'tors --//
-			//------------//
-			SocketClient( USHORT port, IPPROTO protocol );
-			SocketClient( USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
+		WSADATA _wsaData;
+		int _iResult;
+		SOCKET _hSocket;
+		sockaddr_in _serverAddress;
+		std::string _ipAddress;
+		USHORT _port;
+		IPPROTO _protocol;
+		USHORT _socketType;
+		ADDRESS_FAMILY _addressFamily;
+	public:
+		//------------//
+		//-- C'tors --//
+		//------------//
+		SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol );
+		SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
 
-			~SocketClient();
+		~SocketClient();
 
-			//----------------------//
-			//-- Accessor Methods --//
-			//----------------------//
-			WSADATA& get_wsaData();
+		//----------------------//
+		//-- Accessor Methods --//
+		//----------------------//
+		WSADATA& get_wsaData();
 
-			int& get_iResult();
+		int& get_iResult();
 
-			SOCKET& get_socket();
+		SOCKET& get_socket();
 
-			sockaddr_in& get_serverAddress();
+		sockaddr_in& get_serverAddress();
 
-			void set_port( USHORT port );
-			USHORT& get_port();
+		void set_port( USHORT port );
+		USHORT& get_port();
 
-			void set_protocol( IPPROTO protocol );
-			IPPROTO& get_protocol();
+		void set_protocol( IPPROTO protocol );
+		IPPROTO& get_protocol();
 
-			void set_socketType( USHORT socketType );
-			USHORT& get_socketType();
+		void set_socketType( USHORT socketType );
+		USHORT& get_socketType();
 
-			void set_addressFamily( ADDRESS_FAMILY addressFamily );
-			ADDRESS_FAMILY& get_addressFamily();
+		void set_addressFamily( ADDRESS_FAMILY addressFamily );
+		ADDRESS_FAMILY& get_addressFamily();
 
-			//--------------------//
-			//-- Helper Methods --//
-			//--------------------//
-			void Start();
-			void Stop();
-			void Process();
+		//--------------------//
+		//-- Helper Methods --//
+		//--------------------//
+		void Start();
+		void Stop();
+		void Process();
 
-		protected:
-			void Restart();
+	protected:
+		void Restart();
 	};
 }
 #endif

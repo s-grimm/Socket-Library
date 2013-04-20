@@ -4,8 +4,8 @@ using namespace SocketLibrary;
 //------------//
 //-- C'tors --//
 //------------//
-SocketServer::SocketServer( USHORT port, IPPROTO protocol ) :	_port(port), _protocol(protocol), _socketType(SOCK_DGRAM), _addressFamily(AF_INET) { }
-SocketServer::SocketServer( USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
+SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_DGRAM), _addressFamily(AF_INET) {}
+SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
 
 SocketServer::~SocketServer() { }
 
@@ -37,20 +37,27 @@ ADDRESS_FAMILY& SocketServer::get_addressFamily() { return _addressFamily; }
 //--------------------//
 void SocketServer::Start() {
 	_iResult = WSAStartup( MAKEWORD( 2, 2 ), &_wsaData );
-
 	if ( !_iResult ) {
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 
 	_hSocket = socket( _addressFamily, _socketType, _protocol );
+	if( _hSocket == INVALID_SOCKET ) {
+		throw ERROR_UNHANDLED_EXCEPTION;
+	}
 
-	_serverAddress.sin_family = AF_INET;
+	_serverAddress.sin_family = _addressFamily;
 	_serverAddress.sin_port = htons( _port );
-	_serverAddress.sin_addr.s_addr = htonl( INADDR_ANY );
+	_serverAddress.sin_addr.s_addr = inet_addr( _ipAddress.c_str() );
 
 	int res = bind( _hSocket, (sockaddr*)&_serverAddress, sizeof(sockaddr_in) );
 	if( res == SOCKET_ERROR ) {
-		closesocket( _hSocket );
+		Stop();
+		throw ERROR_UNHANDLED_EXCEPTION;
+	}
+
+	if( listen( _hSocket, 1 ) == SOCKET_ERROR )	{
+		Stop();
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 }
