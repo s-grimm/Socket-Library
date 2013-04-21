@@ -23,13 +23,6 @@ std::once_flag server_start_flag;
 bool done;
 
 void send_question(){
-	if( !server.is_started() ){
-		std::call_once( server_start_flag, [](){
-			std::lock_guard<std::mutex> lock(server_lock);
-			if( !server.is_started() )
-				server.Start();
-		});
-	}
 	while( !done && questions.size() > 0 ){
 		try{
 			Question c_question;
@@ -57,14 +50,7 @@ void send_question(){
 				server.send_string("Wrong!");
 			}
 			server.recieve_string(); //hold for "ok"
-			/*std::string rec = server.recieve_string();
-			cout << "Recieved : " <<  rec << endl;
-			cout << "Sending : \"Hello\"" << endl;
-			server.send_string( "Hello" );
-			int i = server.recieve_int();
-			server.send_int( i *= 2 );
-			int x = server.recieve_int();
-			server.send_int(x *= 3 );*/
+			//this line is lock the thread until the client is ready for the next question
 		}
 		catch(...)
 		{
@@ -125,6 +111,13 @@ int main(){
 
 	thread t(load_questions);
 	t.join();
+
+	//send the number of questions to the client
+	{
+		std::lock_guard<std::mutex> lock(server_lock);
+		server.Start();
+		server.send_int( questions.size() );
+	}
 
 	std::vector<thread> threads;
 
