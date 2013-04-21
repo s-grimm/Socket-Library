@@ -21,6 +21,8 @@ std::queue<Question> questions;
 std::once_flag server_start_flag;
 
 bool done;
+int totalQuestions = 0;
+int correctQuestions = 0;
 
 void send_question(){
 	while( !done && questions.size() > 0 ){
@@ -44,6 +46,7 @@ void send_question(){
 			if( answer == c_question.correct_index )
 			{
 				server.send_string("Correct!");
+				correctQuestions++;
 			}
 			else
 			{
@@ -116,7 +119,8 @@ int main(){
 	{
 		std::lock_guard<std::mutex> lock(server_lock);
 		server.Start();
-		server.send_int( questions.size() );
+		totalQuestions = questions.size();
+		server.send_int( totalQuestions );
 	}
 
 	std::vector<thread> threads;
@@ -131,6 +135,11 @@ int main(){
 	}
 
 	done = true;
+
+	stringstream out;
+	out << "You got " << correctQuestions << "/" << totalQuestions << " right. Thank you for playing.";
+
+	server.send_string( out.str().c_str() );
 
 	{
 		std::lock_guard<std::mutex> lock(server_lock);

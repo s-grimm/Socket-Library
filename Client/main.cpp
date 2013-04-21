@@ -65,6 +65,8 @@ int main(){
 
 	done = true;
 
+	std::cout << client.recieve_string() << std::endl;
+
 	{
 		std::lock_guard<std::mutex> lock_client(client_mutex);
 		client.Stop();
