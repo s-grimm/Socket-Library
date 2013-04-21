@@ -4,8 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SocketLibrary", "SocketLibrary\SocketLibrary.vcxproj", "{768E5B5D-F679-4EE4-B6B4-A6A50B9D1BDF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{319973FF-6A7D-4897-82E4-226D4682D867}"
+	ProjectSection(ProjectDependencies) = postProject
+		{768E5B5D-F679-4EE4-B6B4-A6A50B9D1BDF} = {768E5B5D-F679-4EE4-B6B4-A6A50B9D1BDF}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcxproj", "{075AC88C-17EE-49B3-B4F6-63D0FDE41F68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{768E5B5D-F679-4EE4-B6B4-A6A50B9D1BDF} = {768E5B5D-F679-4EE4-B6B4-A6A50B9D1BDF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
