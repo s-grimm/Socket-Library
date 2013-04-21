@@ -3,7 +3,7 @@
 using namespace SocketLibrary;
 
 SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _addressFamily(AF_INET) {
-	_client.hAccepted = SOCKET_ERROR;
+	_client.hAccepted = (SOCKET)SOCKET_ERROR;
 	if( _protocol == IPPROTO_TCP ) {
 		_socketType = SOCK_STREAM;
 	}
@@ -13,7 +13,7 @@ SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol
 	}
 }
 SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) {
-	_client.hAccepted = SOCKET_ERROR;
+	_client.hAccepted = (SOCKET)SOCKET_ERROR;
 }
 
 SocketServer::~SocketServer() { }
@@ -52,12 +52,13 @@ void SocketServer::Start() {
 }
 
 void SocketServer::Stop() {
+	if( _client.hAccepted != SOCKET_ERROR ) closesocket( _client.hAccepted );
 	closesocket( _hSocket );
 	WSACleanup();
 }
 
 void SocketServer::Process() {
-	std::cout << "Waiting for a connection" << std::endl;
+	/*std::cout << "Waiting for a connection" << std::endl;
 	SOCKET hAccepted = SOCKET_ERROR;
 	while( hAccepted == SOCKET_ERROR )
 		hAccepted = accept( _hSocket, NULL, NULL );
@@ -78,7 +79,7 @@ void SocketServer::Process() {
 	i *= 2;
 	send( hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
 
-	closesocket( hAccepted );
+	closesocket( hAccepted );*/
 }
 
 void SocketServer::send_int( int i ) {
@@ -94,8 +95,8 @@ void SocketServer::send_string( char* str ){
 	unsigned int const MAX = 256;
 	char buf[MAX];
 	if( _protocol == IPPROTO_TCP ) {
-		strcpy( buf, str );
-		send( _client.hAccepted, buf, strlen( buf ) + 1, 0 );
+		strcpy_s( buf, str );
+		send( _client.hAccepted, buf, (int)strlen( buf ) + 1, 0 );
 	}
 	else
 	{
