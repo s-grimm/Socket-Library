@@ -57,31 +57,6 @@ void SocketServer::Stop() {
 	WSACleanup();
 }
 
-void SocketServer::Process() {
-	/*std::cout << "Waiting for a connection" << std::endl;
-	SOCKET hAccepted = SOCKET_ERROR;
-	while( hAccepted == SOCKET_ERROR )
-		hAccepted = accept( _hSocket, NULL, NULL );
-	std::cout << "Client connected" << std::endl;
-
-	unsigned int const MAX = 256;
-	char buf[MAX];
-	int bytesRecv = recv( hAccepted, buf, MAX, 0 );
-	std::cout << "Recieved " << bytesRecv << " bytes" << std::endl;
-	std::cout << "Msg: " << buf << std::endl;
-
-	strcpy( buf, "Recieved" );
-	int bytesSent = send( hAccepted, buf, strlen( buf ) + 1, 0 );
-	std::cout << "Sent: " << bytesSent << " bytes" << std::endl;
-
-	int i = 0;
-	recv( hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
-	i *= 2;
-	send( hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
-
-	closesocket( hAccepted );*/
-}
-
 void SocketServer::send_int( int i ) {
 	if( _protocol == IPPROTO_TCP ) {
 		send( _client.hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );

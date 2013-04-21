@@ -48,7 +48,6 @@ namespace SocketLibrary
 
 		void Start();
 		void Stop();
-		void Process();
 
 		void send_int( int i );
 		void send_string( char* str );
@@ -77,7 +76,6 @@ namespace SocketLibrary
 
 		void Start();
 		void Stop();
-		void Process(); //todo: remove this
 
 		void send_int( int i );
 		void send_string( char* str );

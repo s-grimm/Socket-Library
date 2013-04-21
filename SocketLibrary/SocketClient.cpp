@@ -42,23 +42,6 @@ void SocketClient::Stop() {
 	WSACleanup();
 }
 
-void SocketClient::Process() {
-	unsigned int const MAX = 256;
-	char buf[MAX];
-	strcpy( buf, "Hello" );
-	int bytesSent = send( _hSocket, buf, strlen( buf ) + 1, 0 );
-	std::cout << "Sent: " << bytesSent << " bytes" << std::endl;
-
-	int bytesRecv = recv( _hSocket, buf, MAX, 0 );
-	std::cout << "Recieved " << bytesRecv << " bytes" << std::endl;
-	std::cout << "Msg: " << buf << std::endl;
-
-	int i = 42;
-	send( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
-	recv( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
-	std::cout << "i = " << i << std::endl;
-}
-
 void SocketClient::send_int( int i ) {
 	if( _protocol == IPPROTO_TCP ) {
 		send( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
@@ -72,8 +55,8 @@ void SocketClient::send_string( char* str ){
 	unsigned int const MAX = 256;
 	char buf[MAX];
 	if( _protocol == IPPROTO_TCP ) {
-		strcpy( buf, str );
-		send( _hSocket, buf, strlen( buf ) + 1, 0 );
+		strcpy_s( buf, str );
+		send( _hSocket, buf, (int)strlen( buf ) + 1, 0 );
 	}
 	else
 	{
