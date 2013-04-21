@@ -66,6 +66,7 @@ void SocketServer::send_int( int i ) {
 	}
 	else
 	{
+		sendto( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0, &_client.clientAddress, _client.cbClientAddress );
 	}
 }
 
@@ -78,6 +79,7 @@ void SocketServer::send_string( const char* str ){
 	}
 	else
 	{
+		sendto( _hSocket, buf, (int)strlen(buf), 0, &_client.clientAddress, _client.cbClientAddress );
 	}
 }
 int SocketServer::recieve_int(){

@@ -119,7 +119,7 @@ int main(){
 	{
 		std::lock_guard<std::mutex> lock(server_lock);
 		server.Start();
-		totalQuestions = questions.size();
+		totalQuestions = (int)questions.size();
 		server.send_int( totalQuestions );
 	}
 

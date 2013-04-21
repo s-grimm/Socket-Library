@@ -50,6 +50,7 @@ void SocketClient::send_int( int i ) {
 	}
 	else
 	{
+		sendto( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0, (sockaddr*)&_serverAddress, sizeof(_serverAddress) );
 	}
 }
 
@@ -62,6 +63,7 @@ void SocketClient::send_string( const char* str ){
 	}
 	else
 	{
+		sendto( _hSocket, buf, (int)strlen( buf ), 0, (sockaddr*)&_serverAddress, sizeof(_serverAddress) );
 	}
 }
 
