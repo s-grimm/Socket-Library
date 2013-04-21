@@ -39,7 +39,7 @@ namespace SocketLibrary
 		USHORT _socketType;
 		ADDRESS_FAMILY _addressFamily;
 		Client _client;
-
+		bool _started;
 	public:
 		SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol );
 		SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
@@ -49,11 +49,11 @@ namespace SocketLibrary
 		void Start();
 		void Stop();
 
-		void send_int( int i );
-		void send_string( char* str );
+		void send_int( const int i );
+		void send_string( const char* str );
 		int recieve_int();
 		std::string recieve_string();
-
+		bool is_started();
 	protected:
 		void Restart();
 	};
@@ -68,6 +68,7 @@ namespace SocketLibrary
 		IPPROTO _protocol;
 		USHORT _socketType;
 		ADDRESS_FAMILY _addressFamily;
+		bool _started;
 	public:
 		SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol );
 		SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
@@ -77,10 +78,11 @@ namespace SocketLibrary
 		void Start();
 		void Stop();
 
-		void send_int( int i );
-		void send_string( char* str );
+		void send_int( const int i );
+		void send_string( const char* str );
 		int recieve_int();
 		std::string recieve_string();
+		bool is_started();
 
 	protected:
 		void Restart();

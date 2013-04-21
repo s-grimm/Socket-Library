@@ -6,12 +6,21 @@ using namespace SocketLibrary;
 int main(){
 	cout << "Client..." << endl;
 
+	int x = 10;
+
 	SocketClient client( "127.0.0.1", (USHORT)49153, IPPROTO_TCP );
 	client.Start();
+	for(int i = 0; i < 3; ++i){
 	client.send_string("Testing....");
 	cout << "Recieved : " << client.recieve_string() << endl;
-	client.send_int( 10 );
-	cout << "Recieved : " << client.recieve_int() << endl;
-
+	client.send_int( x );
+	x = client.recieve_int();
+	cout << "Recieved : " << x << endl;
+	int c;
+	std::cin >> c;
+	client.send_int( c );
+	c = client.recieve_int();
+	cout << "Recieved : " << c << endl;
+	}
 	client.Stop();
 }

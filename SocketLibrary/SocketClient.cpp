@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace SocketLibrary;
 
-SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _addressFamily(AF_INET) {
+SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _addressFamily(AF_INET), _started(false) {
 	if( _protocol == IPPROTO_TCP ) {
 		_socketType = SOCK_STREAM;
 	}
@@ -11,7 +11,7 @@ SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol
 		_socketType = SOCK_DGRAM;
 	}
 }
-SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
+SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily), _started(false) { }
 
 SocketClient::~SocketClient() { }
 
@@ -35,11 +35,13 @@ void SocketClient::Start() {
 		Stop();
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
+	_started = true;
 }
 
 void SocketClient::Stop() {
 	closesocket( _hSocket );
 	WSACleanup();
+	_started = false;
 }
 
 void SocketClient::send_int( int i ) {
@@ -51,7 +53,7 @@ void SocketClient::send_int( int i ) {
 	}
 }
 
-void SocketClient::send_string( char* str ){
+void SocketClient::send_string( const char* str ){
 	unsigned int const MAX = 256;
 	char buf[MAX];
 	if( _protocol == IPPROTO_TCP ) {
@@ -89,6 +91,11 @@ std::string SocketClient::recieve_string(){
 		buf[min(n,255)] = 0;
 	}
 	return buf;
+}
+
+bool SocketClient::is_started()
+{
+	return _started;
 }
 
 void SocketClient::Restart() {

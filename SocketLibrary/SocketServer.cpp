@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace SocketLibrary;
 
-SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _addressFamily(AF_INET) {
+SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _addressFamily(AF_INET), _started(false) {
 	_client.hAccepted = (SOCKET)SOCKET_ERROR;
 	if( _protocol == IPPROTO_TCP ) {
 		_socketType = SOCK_STREAM;
@@ -12,7 +12,7 @@ SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol
 		_socketType = SOCK_DGRAM;
 	}
 }
-SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) {
+SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily), _started(false) {
 	_client.hAccepted = (SOCKET)SOCKET_ERROR;
 }
 
@@ -49,12 +49,15 @@ void SocketServer::Start() {
 		while( _client.hAccepted == SOCKET_ERROR )
 			_client.hAccepted = accept( _hSocket, NULL, NULL );
 	}
+
+	_started = true;
 }
 
 void SocketServer::Stop() {
 	if( _client.hAccepted != SOCKET_ERROR ) closesocket( _client.hAccepted );
 	closesocket( _hSocket );
 	WSACleanup();
+	_started = false;
 }
 
 void SocketServer::send_int( int i ) {
@@ -66,7 +69,7 @@ void SocketServer::send_int( int i ) {
 	}
 }
 
-void SocketServer::send_string( char* str ){
+void SocketServer::send_string( const char* str ){
 	unsigned int const MAX = 256;
 	char buf[MAX];
 	if( _protocol == IPPROTO_TCP ) {
@@ -102,6 +105,11 @@ std::string SocketServer::recieve_string(){
 		buf[min(n,255)] = 0;
 	}
 	return buf;
+}
+
+bool SocketServer::is_started()
+{
+	return _started;
 }
 
 void SocketServer::Restart() {
