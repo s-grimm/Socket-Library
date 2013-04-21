@@ -32,27 +32,39 @@ void send_question(){
 	}
 	while( !done && questions.size() > 0 ){
 		try{
-			//Question c_question;
+			Question c_question;
 			{
 				std::lock_guard<std::mutex> lock(questions_lock);
+				c_question = questions.front();
 				questions.pop();
 			}
 
 			std::lock_guard<std::mutex> lock(server_lock);
-			//server.send_string( c_question.display.c_str() );
-			//for(size_t i = 0; i < c_question.answers.size(); ++i )
-			//{
-			//	server.send_string( c_question.answers[i].c_str() );
-			//}
+			server.send_string( c_question.display.c_str() );
+			for(size_t i = 0; i < c_question.answers.size(); ++i )
+			{
+				Sleep(50); //Sleep for 50ms to avoid spamming client with data
+				server.send_string( c_question.answers[i].c_str() );
+			}
 
-			std::string rec = server.recieve_string();
+			int answer = server.recieve_int();
+			if( answer == c_question.correct_index )
+			{
+				server.send_string("Correct!");
+			}
+			else
+			{
+				server.send_string("Wrong!");
+			}
+			server.recieve_string(); //hold for "ok"
+			/*std::string rec = server.recieve_string();
 			cout << "Recieved : " <<  rec << endl;
 			cout << "Sending : \"Hello\"" << endl;
 			server.send_string( "Hello" );
 			int i = server.recieve_int();
 			server.send_int( i *= 2 );
 			int x = server.recieve_int();
-			server.send_int(x *= 3 );
+			server.send_int(x *= 3 );*/
 		}
 		catch(...)
 		{
