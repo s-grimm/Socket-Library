@@ -14,17 +14,17 @@
 #include <WinSock2.h>
 #pragma comment (lib,"ws2_32.lib")
 #include <WS2tcpip.h>
-#include <vector>
 
 namespace SocketLibrary
 {
-	struct ConnectedClient {
-		sockaddr	_clientAddress;
-		socklen_t	_cbClientAddress;
-
-		ConnectedClient( sockaddr address ) : _clientAddress ( address ) {
-			_cbClientAddress = sizeof( _clientAddress );
-		}
+	struct Client {
+		sockaddr	clientAddress;
+		socklen_t	cbClientAddress;
+		SOCKET		hAccepted;
+		Client() {}
+		Client(sockaddr client) : clientAddress( client ), cbClientAddress( sizeof( client ) ) {}
+		Client(SOCKET socket) : hAccepted( socket ) {}
+		~Client() {}
 	};
 
 	class SocketServer {
@@ -34,49 +34,26 @@ namespace SocketLibrary
 		SOCKET _hSocket;
 		sockaddr_in _serverAddress;
 		std::string _ipAddress;
-		std::vector<ConnectedClient> _connectedClients;
 		USHORT _port;
 		IPPROTO _protocol;
 		USHORT _socketType;
 		ADDRESS_FAMILY _addressFamily;
+		Client _client;
+
 	public:
-		//------------//
-		//-- C'tors --//
-		//------------//
 		SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol );
 		SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
 
 		~SocketServer();
 
-		//----------------------//
-		//-- Accessor Methods --//
-		//----------------------//
-		WSADATA& get_wsaData();
-
-		int& get_iResult();
-
-		SOCKET& get_socket();
-
-		sockaddr_in& get_serverAddress();
-
-		void set_port( USHORT port );
-		USHORT& get_port();
-
-		void set_protocol( IPPROTO protocol );
-		IPPROTO& get_protocol();
-
-		void set_socketType( USHORT socketType );
-		USHORT& get_socketType();
-
-		void set_addressFamily( ADDRESS_FAMILY addressFamily );
-		ADDRESS_FAMILY& get_addressFamily();
-
-		//--------------------//
-		//-- Helper Methods --//
-		//--------------------//
 		void Start();
 		void Stop();
 		void Process();
+
+		void send_int( int i );
+		void send_string( char* str );
+		int recieve_int();
+		char* recieve_string();
 
 	protected:
 		void Restart();
@@ -93,43 +70,19 @@ namespace SocketLibrary
 		USHORT _socketType;
 		ADDRESS_FAMILY _addressFamily;
 	public:
-		//------------//
-		//-- C'tors --//
-		//------------//
 		SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol );
 		SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily );
 
 		~SocketClient();
 
-		//----------------------//
-		//-- Accessor Methods --//
-		//----------------------//
-		WSADATA& get_wsaData();
-
-		int& get_iResult();
-
-		SOCKET& get_socket();
-
-		sockaddr_in& get_serverAddress();
-
-		void set_port( USHORT port );
-		USHORT& get_port();
-
-		void set_protocol( IPPROTO protocol );
-		IPPROTO& get_protocol();
-
-		void set_socketType( USHORT socketType );
-		USHORT& get_socketType();
-
-		void set_addressFamily( ADDRESS_FAMILY addressFamily );
-		ADDRESS_FAMILY& get_addressFamily();
-
-		//--------------------//
-		//-- Helper Methods --//
-		//--------------------//
 		void Start();
 		void Stop();
-		void Process();
+		void Process(); //todo: remove this
+
+		void send_int( int i );
+		void send_string( char* str );
+		int recieve_int();
+		char* recieve_string();
 
 	protected:
 		void Restart();

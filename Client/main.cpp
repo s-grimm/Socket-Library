@@ -5,8 +5,10 @@ using namespace SocketLibrary;
 
 int main(){
 	cout << "Client..." << endl;	
-	SocketClient client( "127.0.0.1", (USHORT)31337, IPPROTO_TCP );
+	
+	SocketClient client( "127.0.0.1", (USHORT)49153, IPPROTO_TCP );
 	client.Start();
-	client.Process();
+	client.send_string("Testing....");
+	cout << "Recieved : " << client.recieve_string() << endl;
 	client.Stop();
 }

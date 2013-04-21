@@ -1,40 +1,23 @@
 #include <SocketLibrary.hpp>
 #include <iostream>
 using namespace SocketLibrary;
-//------------//
-//-- C'tors --//
-//------------//
-SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_STREAM), _addressFamily(AF_INET) {}
-SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
+
+SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _addressFamily(AF_INET) {
+	_client.hAccepted = SOCKET_ERROR;
+	if( _protocol == IPPROTO_TCP ) {
+		_socketType = SOCK_STREAM;
+	}
+	else
+	{
+		_socketType = SOCK_DGRAM;
+	}
+}
+SocketServer::SocketServer( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) {
+	_client.hAccepted = SOCKET_ERROR;
+}
 
 SocketServer::~SocketServer() { }
 
-//----------------------//
-//-- Accessor Methods --//
-//----------------------//
-WSADATA& SocketServer::get_wsaData() { return _wsaData; }
-
-int& SocketServer::get_iResult() { return _iResult; }
-
-SOCKET& SocketServer::get_socket() { return _hSocket; }
-
-sockaddr_in& SocketServer::get_serverAddress() { return _serverAddress; }
-
-void SocketServer::set_port( USHORT port ) { _port = port; }
-USHORT& SocketServer::get_port() { return _port; }
-
-void SocketServer::set_protocol( IPPROTO protocol ) { _protocol = protocol; }
-IPPROTO& SocketServer::get_protocol() { return _protocol; }
-
-void SocketServer::set_socketType( USHORT socketType ) { _socketType = socketType; }
-USHORT& SocketServer::get_socketType() { return _socketType; }
-
-void SocketServer::set_addressFamily( ADDRESS_FAMILY addressFamily ) { _addressFamily = addressFamily; }
-ADDRESS_FAMILY& SocketServer::get_addressFamily() { return _addressFamily; }
-
-//--------------------//
-//-- Helper Methods --//
-//--------------------//
 void SocketServer::Start() {
 	_iResult = WSAStartup( MAKEWORD( 2, 2 ), &_wsaData );
 	if ( _iResult != 0 ) {
@@ -56,9 +39,15 @@ void SocketServer::Start() {
 		throw ERROR_UNHANDLED_EXCEPTION;
 	}
 
-	if( listen( _hSocket, 1 ) == SOCKET_ERROR )	{
-		Stop();
-		throw ERROR_UNHANDLED_EXCEPTION;
+	if( _protocol == IPPROTO_TCP ){
+		if( listen( _hSocket, 1 ) == SOCKET_ERROR )	{
+			Stop();
+			throw ERROR_UNHANDLED_EXCEPTION;
+		}
+
+		//wait for a connection to the server
+		while( _client.hAccepted == SOCKET_ERROR )
+			_client.hAccepted = accept( _hSocket, NULL, NULL );
 	}
 }
 
@@ -84,14 +73,45 @@ void SocketServer::Process() {
 	int bytesSent = send( hAccepted, buf, strlen( buf ) + 1, 0 );
 	std::cout << "Sent: " << bytesSent << " bytes" << std::endl;
 
-
 	int i = 0;
 	recv( hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
 	i *= 2;
 	send( hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
 
-
 	closesocket( hAccepted );
+}
+
+void SocketServer::send_int( int i ) {
+	if( _protocol == IPPROTO_TCP ) {
+	}
+	else
+	{
+	}
+}
+
+void SocketServer::send_string( char* str ){
+	if( _protocol == IPPROTO_TCP ) {
+	}
+	else
+	{
+	}
+}
+int SocketServer::recieve_int(){
+	if( _protocol == IPPROTO_TCP ) {
+		int i = 0;
+		recv( _client.hAccepted, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
+		return i;
+	}
+	else
+	{
+	}
+}
+char* SocketServer::recieve_string(){
+	if( _protocol == IPPROTO_TCP ) {
+	}
+	else
+	{
+	}
 }
 
 void SocketServer::Restart() {

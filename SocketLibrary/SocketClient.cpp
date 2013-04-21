@@ -1,40 +1,20 @@
 #include <SocketLibrary.hpp>
 #include <iostream>
 using namespace SocketLibrary;
-//------------//
-//-- C'tors --//
-//------------//
-SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(SOCK_STREAM), _addressFamily(AF_INET) { }
+
+SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _addressFamily(AF_INET) {
+	if( _protocol == IPPROTO_TCP ) {
+		_socketType = SOCK_STREAM;
+	}
+	else
+	{
+		_socketType = SOCK_DGRAM;
+	}
+}
 SocketClient::SocketClient( std::string ipAddress, USHORT port, IPPROTO protocol, USHORT socketType, ADDRESS_FAMILY addressFamily ) :	_ipAddress(ipAddress), _port(port), _protocol(protocol), _socketType(socketType), _addressFamily(addressFamily) { }
 
 SocketClient::~SocketClient() { }
 
-//----------------------//
-//-- Accessor Methods --//
-//----------------------//
-WSADATA& SocketClient::get_wsaData() { return _wsaData; }
-
-int& SocketClient::get_iResult() { return _iResult; }
-
-SOCKET& SocketClient::get_socket() { return _hSocket; }
-
-sockaddr_in& SocketClient::get_serverAddress() { return _serverAddress; }
-
-void SocketClient::set_port( USHORT port ) { _port = port; }
-USHORT& SocketClient::get_port() { return _port; }
-
-void SocketClient::set_protocol( IPPROTO protocol ) { _protocol = protocol; }
-IPPROTO& SocketClient::get_protocol() { return _protocol; }
-
-void SocketClient::set_socketType( USHORT socketType ) { _socketType = socketType; }
-USHORT& SocketClient::get_socketType() { return _socketType; }
-
-void SocketClient::set_addressFamily( ADDRESS_FAMILY addressFamily ) { _addressFamily = addressFamily; }
-ADDRESS_FAMILY& SocketClient::get_addressFamily() { return _addressFamily; }
-
-//--------------------//
-//-- Helper Methods --//
-//--------------------//
 void SocketClient::Start() {
 	_iResult = WSAStartup( MAKEWORD( 2, 2 ), &_wsaData );
 	if ( _iResult != 0 ) {
@@ -77,6 +57,36 @@ void SocketClient::Process() {
 	send( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
 	recv( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
 	std::cout << "i = " << i << std::endl;
+}
+
+void SocketClient::send_int( int i ) {
+	if( _protocol == IPPROTO_TCP ) {
+	}
+	else
+	{
+	}
+}
+
+void SocketClient::send_string( char* str ){
+	if( _protocol == IPPROTO_TCP ) {
+	}
+	else
+	{
+	}
+}
+int SocketClient::recieve_int(){
+	if( _protocol == IPPROTO_TCP ) {
+	}
+	else
+	{
+	}
+}
+char* SocketClient::recieve_string(){
+	if( _protocol == IPPROTO_TCP ) {
+	}
+	else
+	{
+	}
 }
 
 void SocketClient::Restart() {
