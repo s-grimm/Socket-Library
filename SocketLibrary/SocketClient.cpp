@@ -61,6 +61,7 @@ void SocketClient::Process() {
 
 void SocketClient::send_int( int i ) {
 	if( _protocol == IPPROTO_TCP ) {
+		send( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
 	}
 	else
 	{
@@ -68,25 +69,43 @@ void SocketClient::send_int( int i ) {
 }
 
 void SocketClient::send_string( char* str ){
+	unsigned int const MAX = 256;
+	char buf[MAX];
 	if( _protocol == IPPROTO_TCP ) {
+		strcpy( buf, str );
+		send( _hSocket, buf, strlen( buf ) + 1, 0 );
 	}
 	else
 	{
 	}
 }
+
 int SocketClient::recieve_int(){
 	if( _protocol == IPPROTO_TCP ) {
+		int i = 0;
+		recv( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0 );
+		return i;
 	}
 	else
 	{
+		int i = 0;
+		recvfrom( _hSocket, reinterpret_cast<char*>( &i ), sizeof(i), 0, NULL, NULL );
+		return i;
 	}
 }
-char* SocketClient::recieve_string(){
+
+std::string SocketClient::recieve_string(){
+	unsigned int const MAX = 256;
+	char buf[MAX] = "";
 	if( _protocol == IPPROTO_TCP ) {
+		recv( _hSocket, buf, MAX, 0 );
 	}
 	else
 	{
+		int n = recvfrom( _hSocket, buf, MAX, 0, NULL, NULL );
+		buf[min(n,255)] = 0;
 	}
+	return buf;
 }
 
 void SocketClient::Restart() {

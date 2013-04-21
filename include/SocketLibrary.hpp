@@ -14,7 +14,7 @@
 #include <WinSock2.h>
 #pragma comment (lib,"ws2_32.lib")
 #include <WS2tcpip.h>
-
+#include <string>
 namespace SocketLibrary
 {
 	struct Client {
@@ -53,7 +53,7 @@ namespace SocketLibrary
 		void send_int( int i );
 		void send_string( char* str );
 		int recieve_int();
-		char* recieve_string();
+		std::string recieve_string();
 
 	protected:
 		void Restart();
@@ -82,7 +82,7 @@ namespace SocketLibrary
 		void send_int( int i );
 		void send_string( char* str );
 		int recieve_int();
-		char* recieve_string();
+		std::string recieve_string();
 
 	protected:
 		void Restart();

@@ -8,8 +8,11 @@ int main(){
 	SocketServer server( "127.0.0.1", (USHORT)49153, IPPROTO_TCP );
 	server.Start();
 	//server.Process();
-	cout << "Recieved : " << server.recieve_string() << endl;
+	std::string rec = server.recieve_string();
+	cout << "Recieved : " <<  rec << endl;
 	cout << "Sending : \"Hello\"" << endl;
 	server.send_string( "Hello" );
+	int i = server.recieve_int();
+	server.send_int( i *= 2 );
 	server.Stop();
 }
